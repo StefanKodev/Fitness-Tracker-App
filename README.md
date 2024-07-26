@@ -12,7 +12,7 @@ Main functionalities are:
   
   -being able to see records of your BMI levels (includes visual representation with Chart.js)
   
-  -weather info for the users city (using a weather API to get and display the weather information for the city that the user picked when they registed)
+  -weather info for the users' city (using a weather API to get and display the weather information for the city that the user picked when they registed)
   
   -users have access to recommended exercises that are based on their stats such as height, weight, age, gender and more. The app recommends the best exercises for 
   a particular muscle group that the user wants to train today
