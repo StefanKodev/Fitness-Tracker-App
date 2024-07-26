@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Exercise</title>
+</head>
+<body>
+    <h1>Current Exercise</h1>
+    <p>{{ exercise.name }}</p>
+    <p>{{ exercise.sets }} sets x {{ exercise.reps }} reps</p>
+    <form method="post" action="{% url 'finish_exercise' %}">
+        {% csrf_token %}
+        <button type="submit">Finish Exercise</button>
+    </form>
+</body>
+</html>

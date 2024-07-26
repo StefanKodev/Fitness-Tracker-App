@@ -1,0 +1,54 @@
+{% extends 'web/base.html' %}
+
+{% block main_content %}
+<div class="bmi-history">
+    <h2>BMI History</h2>
+    <canvas id="bmiChart" width="800" height="400"></canvas>
+    <div class="bmi-stats">
+        <p>Start BMI: {{ start_bmi }}</p>
+        <p>Min BMI: {{ min_bmi }} on {{ min_bmi_date }}</p>
+        <p>Max BMI: {{ max_bmi }} on {{ max_bmi_date }}</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('bmiChart').getContext('2d');
+    var bmiData = {{ bmi_data|safe }};
+    var dates = Object.keys(bmiData);
+    var bmiValues = Object.values(bmiData);
+    
+    var bmiChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'BMI',
+                data: bmiValues,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'category',
+                    labels: dates,
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: 'BMI'
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="manage-exercises check_registered_cars_customer">
+    <h2>Manage Existing Exercises</h2>
+    <div class="filter-buttons">
+      <a href="{% url 'manage_exercises' %}?muscle_group=" class="btn btn-filter">All</a>
+        {% for muscle_group in muscle_groups %}
+            <a href="{% url 'manage_exercises' %}?muscle_group={{ muscle_group }}" class="btn btn-filter">{{ muscle_group }}</a>
+        {% endfor %}
+    </div>
+    <ul class="exercise-list unassigned-cars-list">
+        {% for exercise in exercises %}
+            <li class="unassigned-car">
+                {{ exercise.name }} - {{ exercise.body_part }} - {{ exercise.equipment }} - Reps: {{ exercise.reps }} - Sets: {{ exercise.sets }}
+                <div class="btn-group">
+                <a href="{% url 'edit_exercise' exercise.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'remove_exercise' exercise.id %}" class="btn btn-secondary">Remove</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if filters.muscle_group %}&muscle_group={{ filters.muscle_group }}{% endif %}">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if filters.muscle_group %}&muscle_group={{ filters.muscle_group }}{% endif %}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if filters.muscle_group %}&muscle_group={{ filters.muscle_group }}{% endif %}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if filters.muscle_group %}&muscle_group={{ filters.muscle_group }}{% endif %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

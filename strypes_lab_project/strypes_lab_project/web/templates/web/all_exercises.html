@@ -1,0 +1,37 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="manage-exercises">
+    <h1>Manage Existing Exercises</h1>
+    <div class="filter-buttons">
+        {% for muscle_group in muscle_groups %}
+            <button onclick="location.href='?muscle_group={{ muscle_group }}'" class="btn btn-filter">{{ muscle_group }}</button>
+        {% endfor %}
+    </div>
+    <ul class="exercise-list">
+        {% for exercise in exercises %}
+            <li>
+                {{ exercise.name }} - {{ exercise.body_part }} - {{ exercise.equipment }}
+                <button onclick="location.href='{% url 'edit_exercise' exercise.id %}'" class="btn btn-edit">Edit</button>
+                <button onclick="location.href='{% url 'remove_exercise' exercise.id %}'" class="btn btn-remove">Remove</button>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if muscle_group %}&muscle_group={{ muscle_group }}{% endif %}">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if muscle_group %}&muscle_group={{ muscle_group }}{% endif %}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if muscle_group %}&muscle_group={{ muscle_group }}{% endif %}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if muscle_group %}&muscle_group={{ muscle_group }}{% endif %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

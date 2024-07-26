@@ -1,0 +1,13 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="form">
+    <h2>Edit Exercise</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

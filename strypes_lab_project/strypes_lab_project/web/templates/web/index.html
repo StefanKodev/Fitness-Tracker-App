@@ -1,0 +1,197 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block main_content %}
+
+        <!--THIS IS WHERE THE MAIN BLOCK-->
+    {% if not request.user.is_authenticated %}
+    <div class="main">
+
+        <div class="info">
+            <h2 class="info-title">
+                Who are we?
+            </h2>
+            <h3 class="info-subtitle">
+                We are a friendly fitness webapp,
+            </h3>
+            <p class="info-p">
+                filled with amazing trainers,
+            </p>
+            <p class="info-p">
+                ready to get you in shape no matter what!
+            </p>
+            <p>
+            <a href="{% url 'about page' %}">
+                More about us!
+            </a>
+            </p>
+        </div>
+
+        <div class="info">
+            <h2 class="info-title">
+                The best exercises!
+            </h2>
+            <h3 class="info-subtitle">
+                You can check out the best
+            </h3>
+            <p class="info-p">
+                exercises for each muscle group
+            </p>
+            <p class="info-p">
+                and get in top shape in no time!
+            </p>
+        </div>
+
+        <div class="info">
+            <h2 class="info-title">
+                Register right now!
+            </h2>
+            {% if not request.user.is_authenticated %}
+            <h3 class="info-subtitle">
+                Make an account
+            </h3>
+            <p class="info-p">
+                and check what we have in store for you!
+            </p>
+            {% else %}
+            <h3 class="info-subtitle">
+                Register right now!
+            </h3>
+            {% endif %}
+                    <p class="info-p">
+                Its completely free!
+            </p>
+                    <a href="{% url 'register user' %}">
+                REGISTER NOW!
+            </a>
+        </div>
+
+</div>
+    {% else %}
+        {% if not request.user.is_trainer %}
+
+
+             <div class="main_block">
+        <div class="top_left">
+            <div class="user_info">
+                <span class="name">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+            </div>
+            <div class="current_time">
+                <span id="time">HH:MM</span>
+            </div>
+        </div>
+        <div class="top_right">
+            <div class="weather">
+                <h1><i class="fas fa-cloud-sun search-icon"></i> Weather App</h1>
+                <h2>Weather for {{ city }}:</h2>
+                <p>Temperature: {{ temperature }}°C</p>
+                <p>Conditions: {{ conditions }}</p>
+            </div>
+        </div>
+        <div class="bottom_left">
+            <div class="yesterday_workout">
+                <h2>Calculate BMI</h2>
+                {% if today_bmi %}
+                    <p>Your BMI for today is {{ today_bmi }}</p>
+                    {% else %}
+                    <p>You have not recorded your BMI today.</p>
+                    {% endif %}
+                            <div class="btn-start-workout">
+            <a href="{% url 'calculate_bmi' %}" class="card-btn-register">Calculate BMI</a>
+        </div>
+            <div class="btn-start-workout">
+            <a href="{% url 'bmi_history' %}" class="card-btn-register">BMI History</a>
+        </div>
+            </div>
+        </div>
+        <div class="bottom_right">
+        <div class="training_tips">
+            {% if today_workout %}
+                <h2>Today's workouts:</h2>
+                {% for muscle_group in today_workout %}
+                <p>{{ muscle_group }}</p>
+                {% endfor %}
+            {% else %}
+                <h3>You have not exercised today! Would you like to start a workout?</h3>
+            {% endif %}
+            <div class="btn-start-workout">
+            <a href="{% url 'workout_plans' %}" class="card-btn-register">Start Workout</a>
+        </div>
+        <div class="btn-start-workout">
+            <a href="{% url 'workout_history' %}" class="card-btn-register">Workout History</a>
+        </div>
+        </div>
+    </div>
+    </div>
+
+         {% else %}
+            <div class="main-trainer-hub">
+        <div class="info">
+            <h2 class="info-title">
+                Welcome trainer
+            </h2>
+            <p class="subtitle">
+                {{ user.first_name }} {{ user.last_name }}
+            </p>
+            <h3 class="info-subtitle">
+                Your job is to manage the exercises
+            </h3>
+            <p class="info-p">
+                so that the app users have a the
+            </p>
+            <p class="info-p">
+                best workout program to work with.
+            </p>
+            <p>
+            </p>
+        </div>
+
+        <div class="info">
+            <h2 class="info-title">
+                Manage Exercises
+            </h2>
+            <h3 class="info-subtitle">
+                Here you can manage
+            </h3>
+            <p class="info-p">
+                all of the exercises.
+            </p>
+            <p>
+            </p>
+        </div>
+            <div class="trainer-dashboard info">
+                <h2 class="info-title">Trainer Dashboard</h2>
+                <p class="info-p"><a href="{% url 'add_exercise' %}" class="btn btn-primary">Add Exercise</a></p>
+
+                <p class="info-p"><a href="{% url 'manage_exercises' %}" class="btn btn-secondary">Manage Existing Exercises</a></p>
+            </div>
+
+
+
+    {% endif %}
+    {% endif %}
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+
+        if (hours < 10) {
+            hours = '0' + hours;
+        }
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+
+        document.getElementById('time').textContent ='Time: ' + hours + ':' + minutes;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+</script>
+{% endblock %}

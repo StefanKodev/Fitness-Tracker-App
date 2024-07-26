@@ -1,0 +1,76 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block main_content %}
+
+    <div class="mainAbout">
+        <div class="main-title">
+            <h2 class="title">
+                KodevFit
+            </h2>
+            <p class="subtitle">
+                Stefan Kodev
+            </p>
+        </div>
+        <div class="places">
+        <div class="card">
+            <h2 class="card-title">
+                About us
+            </h2>
+            <p class="card-p">
+                We are a small group of fitness trainers capable of recommending the best exercises for your workouts!
+            </p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">
+                Location
+            </h2>
+            <p class="card-p">
+                We are based in Bulgaria! We have a bunch of locations in the country! If you need help contact us!
+            </p>
+        </div>
+        <div class="card">
+            <h2 class="card-title">
+                Check out our web app!
+            </h2>
+            <p class="card-p">
+                Our app is completely free and we guarantee you will see some improvements from the exercises that we have in store for you!
+            </p>
+        </div>
+
+            <div class="check_registered_cars_customer">
+        <h2>Our List of Trainers</h2>
+        {% if trainers %}
+            <ul class="unassigned-cars-list">
+                {% for trainer in page_obj %}
+                    <li class="unassigned-car">
+                        {{ trainer.first_name }} {{ trainer.last_name }} - {{ trainer.email }}
+                        <div class="btn-group">
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="pagination">
+ <span class="step-links">
+ {% if page_obj.has_previous %}
+ <a href="?page=1">&laquo; first</a>
+ <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+ {% endif %}
+ <span class="current">
+ Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}.
+ </span>
+ {% if page_obj.has_next %}
+ <a href="?page={{ page_obj.next_page_number }}">next</a>
+ <a href="?page={{ page_obj.paginator.num_pages }}">last
+&raquo;</a>
+ {% endif %}
+ </span>
+ </div>
+        {% else %}
+            <p>No registered trainers.</p>
+        {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

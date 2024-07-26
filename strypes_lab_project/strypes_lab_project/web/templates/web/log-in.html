@@ -1,0 +1,49 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load forms %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+{% block main_content %}
+    <!--THIS IS WHERE THE LOGIN FORM IS-->
+    <section id="register">
+        <div class="form">
+            <h2>Log In</h2>
+            <form class="register-form" action="{% url 'login user' %}" method="post">
+                {{ form.username.label_tag }}
+                {{ form.username|placeholder:'Enter username' }}
+                {% if form.username.errors %}
+    	            {{ form.username.errors.0 }}
+                {% endif %}
+
+                {{ form.password.label_tag }}
+                {{ form.password|placeholder:'Enter password' }}
+                {% if form.password.errors %}
+    	            {{ form.password.errors.0 }}
+                {% endif %}
+                          {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+
+                <input type="hidden" value="{{ next }}" name="next">
+                {% csrf_token %}
+
+                <button type="submit">Log in</button>
+
+                <p>or <a href="{% url 'register user' %}?next={{ next }}">register</a></p>
+            </form>
+        </div>
+    </section>
+    <!--END OF LOGIN FORM-->
+{% endblock %}

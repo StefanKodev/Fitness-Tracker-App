@@ -1,0 +1,81 @@
+{% extends 'web/base.html' %}
+{% block main_content %}
+<form method="post" action="" class="for_service_details">
+    {% csrf_token %}
+    <h2>Recommended Exercises for {{ muscle_group }}</h2>
+    <div id="exerciseContainer">
+    {% if recommended_exercises %}
+        {% for exercise in recommended_exercises %}
+        <div class="exerciseEntry">
+            <label>Exercise:</label>
+            <select name="exercise[]" class="exercise">
+                <option value="{{ exercise.id }}" selected>{{ exercise.name }}</option>
+            </select>
+            <label>Reps:</label>
+            <input type="number" name="reps[]" value="10" min="1" required>
+            <label>Sets:</label>
+            <input type="number" name="sets[]" value="3" min="1" required>
+            <button type="button" onclick="removeExercise(this)">Remove</button>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div>No recommendations! Please try again later!</div>
+    {% endif %}
+    </div>
+    <button type="submit">Submit Workout</button>
+        <a href="{% url 'select exercises' muscle_group %}">Back to Custom Workout</a>
+</form>
+<script>
+function addExercise() {
+    var container = document.getElementById('exerciseContainer');
+    var newEntry = container.firstElementChild.cloneNode(true);
+    newEntry.getElementsByTagName('input')[0].value = '';
+    newEntry.getElementsByTagName('input')[1].value = '';
+    container.appendChild(newEntry);
+}
+
+function removeExercise(button) {
+    button.parentNode.remove();
+}
+</script>
+{% endblock %}
+
+{% block extra_scripts %}
+<style>
+    .filter-date-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .filter-buttons, .date-selector {
+        display: flex;
+        align-items: center;
+    }
+
+    #datepicker {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #370511;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .title_date{
+        margin-right: 3px;
+    }
+</style>
+{% endblock %}

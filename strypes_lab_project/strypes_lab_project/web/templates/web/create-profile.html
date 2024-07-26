@@ -1,0 +1,52 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% load forms %}
+
+{% block main_content %}
+
+
+    <section id="register">
+        <div class="form">
+            <h2>Create Profile</h2>
+            <form class="register-form" action="{% url 'register user' %}" method="post">
+                {{ form.username.label_tag }}
+                {{ form.username|placeholder:'Enter username' }}
+                {{ form.email.label_tag }}
+                {{ form.email|placeholder:'Enter email address' }}
+                {{ form.password1.label_tag }}
+                {{ form.password1|placeholder:'Enter password' }}
+                {{ form.password2.label_tag }}
+                {{ form.password2|placeholder:'Confirm password' }}
+
+                {% if form.username.errors %}
+    	            {{ form.username.errors.0 }}
+                {% endif %}
+                {% if form.email.errors %}
+    	            {{ form.email.errors.0 }}
+                {% endif %}
+                {% if form.password1.errors %}
+    	            {{ form.password1.errors.0 }}
+                {% endif %}
+                {% if form.password2.errors %}
+    	            {{ form.password2.errors.0 }}
+                {% endif %}
+
+                              {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                <input type="hidden" name="next" value="{{ next }}">
+
+                {% csrf_token %}
+
+                <button type="submit">Register</button>
+                <p>or <a href="{% url 'login user' %}?next={{ next }}">login</a></p>
+
+            </form>
+        </div>
+    </section>
+
+{% endblock %}

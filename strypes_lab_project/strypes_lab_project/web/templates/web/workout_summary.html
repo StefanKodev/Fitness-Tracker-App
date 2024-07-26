@@ -1,0 +1,18 @@
+{% extends 'web/base.html' %}
+{% block main_content %}
+    <div class="for_service_details">
+<h2>Workout Summary for {{ workout.date }}</h2>
+{% if details %}
+    <div class="car-info">
+    <ul class="car-info">
+        {% for detail in details %}
+        <li>{{ detail.exercise.name }} - {{ detail.reps }} reps x {{ detail.sets }} sets{% if detail.weight %} at {{ detail.weight }} kg{% endif %}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No exercises found for this workout.</p>
+{% endif %}
+        </div>
+<a href="{% url 'home page' %}">Return to home</a>
+    </div>
+{% endblock %}

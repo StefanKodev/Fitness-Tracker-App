@@ -1,0 +1,93 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="mainAbout edit-select-plan">
+    <div class="main-title">
+        <h2 class="title">KodevFit</h2>
+        <p class="subtitle">
+            <h1>Select Workout Preferences</h1>
+        </p>
+        <form method="post" action="{% url 'save_workout_preferences' %}">
+            {% csrf_token %}
+            <div class="equipment">
+                <h2>Select Equipment</h2>
+                <label>
+                    <input type="radio" name="equipment" value="Body weight" required> Body weight
+                </label>
+                <label>
+                    <input type="radio" name="equipment" value="Fitness equipment"> Fitness equipment
+                </label>
+            </div>
+            <div class="muscle-group">
+                <h2>Select Muscle Groups</h2>
+                <label><input type="checkbox" name="muscle_groups" value="Arms">Arms</label>
+                <label><input type="checkbox" name="muscle_groups" value="Legs">Legs</label>
+                <label><input type="checkbox" name="muscle_groups" value="Abs">Abs</label>
+                <label><input type="checkbox" name="muscle_groups" value="Back">Back</label>
+                <label><input type="checkbox" name="muscle_groups" value="Shoulder">Shoulders</label>
+                <label><input type="checkbox" name="muscle_groups" value="Chest">Chest</label>
+            </div>
+            <div class="goal-selection">
+                <h2>Select Your Goal</h2>
+                <select name="goal">
+                    <option value="strength">Strength</option>
+                    <option value="endurance">Endurance</option>
+                    <option value="muscle_gain">Muscle Gain</option>
+                    <option value="get_toned">Get Toned</option>
+                </select>
+            </div>
+            <div class="intensity-selection">
+                <h2>Select Workout Intensity</h2>
+                <select name="intensity">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Preferences</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<style>
+    .filter-date-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .filter-buttons, .date-selector {
+        display: flex;
+        align-items: center;
+    }
+
+    #datepicker {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #370511;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .title_date{
+        margin-right: 3px;
+    }
+</style>
+{% endblock %}
+

@@ -1,0 +1,30 @@
+{% extends 'web/base.html' %}
+{% block main_content %}
+
+<div class="for_service_details">
+    {% if muscle_group in today_workout %}
+        <h3 class="warning-workout">You have already this muscle group today. We strongly recommend not to overtrain the same muscle group!</h3>
+        {% elif muscle_group in yesterday_workout %}
+        <h3 class="warning-workout">You trained this muscle group yesterday. We strongly recommend that you rest before repeating the same muscle group!</h3>
+    {% endif %}
+
+    <h2>{{ muscle_group }} Workout Details</h2>
+    <div class="car-info">
+        <ul>
+        {% for exercise in exercises %}
+            <li>
+                <strong>{{ exercise.name }}</strong>
+                <br>
+                Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}
+            </li>
+        {% empty %}
+            <li>No exercises found for {{ muscle_group }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+    <div class="claim-car-button">
+        <a href="{% url 'start_workout' muscle_group %}" class="btn btn-success">Start Workout</a>
+        <a href="{% url 'workout_plans' %}" class="btn btn-success back-button">Back to workouts</a>
+    </div>
+</div>
+{% endblock %}

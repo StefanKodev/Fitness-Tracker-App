@@ -1,0 +1,13 @@
+{% extends 'web/base.html' %}
+
+{% block main_content %}
+
+<div class="for_service_details">
+    <h2>Workout Completed!</h2>
+    <div class="car-info">
+    <p>Congratulations on completing your workout!</p>
+    <a href="{% url 'workout_plans' %}" class="btn btn-primary">Start a New Workout</a>
+        <a href="{% url 'home page' %}">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

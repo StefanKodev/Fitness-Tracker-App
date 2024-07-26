@@ -1,0 +1,11 @@
+{% extends 'web/base.html' %}
+{% block main_content %}
+    <div class="form">
+    <h2>Finish your profile so you can use our services correctly!</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Finish Profile</button>
+    </form>
+    </div>
+{% endblock %}

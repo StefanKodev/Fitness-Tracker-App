@@ -1,0 +1,14 @@
+{% extends 'web/base.html' %}
+
+{% block main_content %}
+    <h1>Recommended Exercises</h1>
+    {% if recommendations %}
+        <ul>
+            {% for exercise in recommendations %}
+                <li>{{ exercise }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recommendations available. Try updating your profile or check back later.</p>
+    {% endif %}
+{% endblock %}

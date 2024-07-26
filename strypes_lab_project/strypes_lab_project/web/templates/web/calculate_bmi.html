@@ -1,0 +1,12 @@
+{% extends 'web/base.html' %}
+
+{% block main_content %}
+<div class="form">
+    <h2>Calculate Your BMI</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Calculate BMI</button>
+    </form>
+</div>
+{% endblock %}

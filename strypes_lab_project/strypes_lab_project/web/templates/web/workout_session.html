@@ -1,0 +1,25 @@
+{% extends 'web/base.html' %}
+
+{% block main_content %}
+<div class="for_service_details">
+    <h2>Workout Session</h2>
+    <div class="car-info">
+        <h3>{{ exercise.name }}</h3>
+    <p>Set {{ set }} of {{ exercise.sets }}</p>
+
+    {% if break_time %}
+        <h3>Break Time! Take a two-minute break!</h3>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="card-btn-register">End Break</button>
+        </form>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="card-btn-register">Complete Set</button>
+        </form>
+    {% endif %}
+    </div>
+
+</div>
+{% endblock %}

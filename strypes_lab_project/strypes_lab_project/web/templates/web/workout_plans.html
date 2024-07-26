@@ -1,0 +1,58 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block main_content %}
+    {% if user.is_trainer %}
+        <div class="form">
+            <h2>You are a trainer!</h2>
+            <p>You cannot register any cars!</p>
+        </div>
+    {% else %}
+        <div class="profile">
+            <div class="profile-data">
+                <div class="personal">
+                    <div class="edit">
+                        <p>User: {{ user.username }}</p>
+                    </div>
+                    <p class="email">Email: {{ user.email }}</p>
+                </div>
+            </div>
+
+            <div class="check_registered_cars_customer">
+            {% if today_workout %}
+                <h3 class="warning-workout">You have already trained today. You might want to relax.</h3>
+                {% endif %}
+                <h2>My Workout Plan</h2>
+                {% if workout_plans %}
+                    {% for muscle_group, exercises in workout_plans.items %}
+                        <div class="muscle-group">
+                            <h3>{{ muscle_group }}</h3>
+
+                            <a href="{% url 'select exercises' muscle_group %}" class="btn btn-primary">Select Workout</a>
+                        </div>
+                    {% endfor %}
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            {% endif %}
+                            <span class="current">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="edit-button">
+                    <a href="{% url 'select_workout_preferences' %}" class="btn btn-primary">Edit Workout Plan</a>
+                    </div>
+                {% else %}
+                    <p>No selected exercises</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
