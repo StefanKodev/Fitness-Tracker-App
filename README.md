@@ -1,6 +1,6 @@
-This is my Fitness Tracker Web App. It was made with Python, more particularly Django, using HTML&CSS for the front-end and a bit of JavaScript for styling. 
+This is my Fitness Tracker Web App. It was made with Python, more particularly Django, using HTML&CSS for the front-end and a bit of JavaScript for styling and Scikit-learn for creating and teaching a Machine Learning Algorithm that is capable of recommending exercises to the user.
 
-The main purpouse of the app is to ensure that the users can track all of their fitness progress. Every user can register and start tracking their workouts. 
+Th main purpouse of the app is to ensure that the users can track all of their fitness progress. Every user can register and start tracking their workouts. 
 
 Main functionalities are:
 
